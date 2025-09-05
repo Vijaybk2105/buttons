@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hackathon AI Chatbot</title>
+</head>
+<body>
+  <h1>🚀 Hackathon AI Chatbot</h1>
+  <input type="text" id="userInput" placeholder="Ask me anything..." />
+  <button onclick="sendMessage()">Send</button>
+  <div id="chat"></div>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById("userInput").value;
+      const res = await fetch("http://localhost:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+      const data = await res.json();
+      document.getElementById("chat").innerHTML += `<p><b>You:</b> ${message}</p>`;
+      document.getElementById("chat").innerHTML += `<p><b>AI:</b> ${data.reply}</p>`;
+    }
+  </script>
+</body>
+</html>
